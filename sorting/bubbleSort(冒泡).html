@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>冒泡排序</title>
+</head>
+<body>
+	<div id="main">
+		<div id="b1"></div>
+	</div>
+	<script>
+		var array = [15, 23, 14, 28, 13, 17, 20, 42];
+		var mainDiv = document.getElementById("main");
+		var firstDiv = document.getElementById("b1");
+		firstDiv.innerText = array.join("  ");
+
+		//每次冒泡一个,需要array.length次
+		for(let i = 0; i < array.length; i++) {
+			for(let j = 0; j < array.length - i - 1; j++) {
+				if(array[j] > array[j + 1]) {
+					let temp = array[j + 1];
+					array[j + 1] = array[j];
+					array[j] = temp;
+					writeStep(i, j);
+				}
+			}
+		}
+
+		function writeStep(count, index) {
+			let template = document.createElement('div');
+			template.id = 'b' + count;
+			template.innerHTML = getStartToEndArray(array, 0, index).join("  ") + "  " + '<span style="color: red;">' +array[index] + '</span>' + '  <span style="color: red;">' + array[index + 1] + '</span>' + "  " +getStartToEndArray(array, index + 2, array.length).join("  ");
+			mainDiv.lastElementChild.appendChild(template);
+		}
+
+		
+		function getStartToEndArray( array, start, end) {
+			let newArray = [];
+
+			array.forEach((item, index, arr) => {
+				if(index >= start && index < end) {
+					newArray.push(arr[index]);
+				}
+			})
+
+			return newArray;
+		}
+	</script>
+</body>
+</html>

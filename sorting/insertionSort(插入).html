@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>插入排序</title>
+</head>
+<body>
+	<div id="main">
+		<div id="b1"></div>
+	</div>
+	<script>
+		var array = [15, 23, 14, 28, 13, 17, 20, 42];
+		var mainDiv = document.getElementById("main");
+		var firstDiv = document.getElementById("b1");
+		firstDiv.innerText = array.join("  ");
+
+		for(let i = 0; i < array.length - 1; i++) {
+			for(let j = i + 1; j > 0; j--) {
+				if(array[j] < array[j-1]) {
+					let temp = array[j-1];
+					array[j-1] = array[j];
+					array[j] = temp;
+					printOut(array, j);
+				}
+				else {
+					break;
+				}
+			}
+		}
+
+		function getStartToEndArray( array, start, end) {
+			let newArray = [];
+
+			array.forEach((item, index, arr) => {
+				if(index >= start && index <= end) {
+					newArray.push(arr[index]);
+				}
+			})
+
+			return newArray;
+		}
+		
+		function printOut(array, j) {
+			let template = document.createElement('div');
+			template.innerHTML = getStartToEndArray(array, 0, j - 2).join("  ") + "  <span style='color: red;'>" + array[j - 1] + "</span>  " + getStartToEndArray(array, j, array.length).join("  ");
+
+			let temp = document.createDocumentFragment();
+			temp.appendChild(template);
+			mainDiv.lastElementChild.appendChild(temp);
+		}
+	</script>
+</body>
+</html>
